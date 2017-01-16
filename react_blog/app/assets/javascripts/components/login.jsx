@@ -5,16 +5,25 @@ class Login extends React.Component {
   }
 
   handleSubmit() {
-    let name = this.refs.name.value;
+    let username = this.refs.username.value;
     let password = this.refs.password.value;
+
+     $.ajax({
+       method: 'post',
+       url: '/session',
+       data: { username: username, password: password }
+     }).done((response) => {
+      debugger
+    })
+
 
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input ref='name' placeholder='stuff goes here'/>
-        <input ref='password' input='password' />
+        <input ref='username' placeholder='Username'/>
+        <input ref='password' placeholder='Password'/>
         <input type="submit" value="Submit" />
       </form>
     );
