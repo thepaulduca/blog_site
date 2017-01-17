@@ -1,11 +1,13 @@
 class SessionController < ApplicationController
 
   def create
-    puts params
-    if @user = User.find_by(session_params)
-      session[:user_id] = @user.id
+    respond_to do |format|
+      if @user = User.find_by(session_params)
+        render :json => @user
+      else
+        format.json @user.errors
+      end
     end
-    return "THIS STRING"
   end
 
   private
@@ -13,6 +15,5 @@ class SessionController < ApplicationController
   def session_params
     params.fetch(:session, {})
   end
-
 
 end
